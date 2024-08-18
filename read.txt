@@ -1,0 +1,1 @@
+Today is awesome day. Now i'm saying the day is awesome from fs.appendFile

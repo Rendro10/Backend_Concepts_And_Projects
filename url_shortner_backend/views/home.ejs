@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: "Arial Narrow Bold", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* height: 100vh; */
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+            color: #0066cc;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 22px); /* Adjusted width to accommodate the button padding */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box; /* Include padding in the width calculation */
+        }
+
+        button[type="submit"] {
+            width: calc(100% - 22px); /* Adjusted width to accommodate the button padding */
+            padding: 10px;
+            background-color: #0066cc;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-sizing: border-box; /* Include padding in the width calculation */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+        .btn {
+            text-align: center; /* Center the button */
+            margin-top: 20px; /* Add some space between the button and the table */
+        }
+        .btn button {
+            height: 50px;
+            width: 200px;
+            padding: 6px; /* Adjusted padding for better appearance */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>URL Shortner</h1>
+    <% if (locals.username) { %>
+        <h2>Welcome, <%= username %> TO Our Website URL ShortNER!</h2>
+    <% } %>
+    <div>
+        <form method="post" action="/url">
+            <label>Enter Your Original URL</label>
+            <input type="text" name="url" placeholder="http://example.com" />
+            <button type="submit">Generate</button>
+        </form>
+    </div>
+    <% if (locals.id) { %>
+        <p>URL Generated:-> http://localhost:8001/<%=id%></p>
+    <% } %>
+    <div>
+        <% if (locals.urls) { %>
+            <table>
+                <thead>
+                <tr>
+                    <th>S. No</th>
+                    <th>ShortID</th>
+                    <th>Redirect</th>
+                    <th>Clicks</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% urls.forEach((url, index)=> { %>
+                    <tr>
+                        <td><%= index+1 %></td>
+                        <td><%= url.shortId %></td>
+                        <td><%= url.redirectUrl %></td>
+                        <td><%= url.visitHistory.length %></td>
+                    </tr>
+                <% }) %>
+                </tbody>
+            </table>
+        <% } %>
+    </div>
+    <div class="btn">
+        <a href="/"><button>Go To Home</button></a>
+    </div>
+</div>
+</body>
+</html>
